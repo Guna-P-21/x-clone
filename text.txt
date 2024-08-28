@@ -1,0 +1,6 @@
+1.Front-End Development Install Tools
+  --npm create vite@latest
+
+2.Back-End Development Install Tools
+  --npm init -y
+  --npm install express monogoose jsonwebtoken bcryptjs dotenv cors cookie-parser cloudinary
