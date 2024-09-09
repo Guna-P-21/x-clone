@@ -7,6 +7,7 @@ import { v2 as cloudinary } from "cloudinary";
 // Routes
 import authRoutes from "./routes/auth_routes.js";
 import userRoutes from "./routes/user_routes.js";
+import postRoutes from "./routes/post_routes.js";
 
 // Utility Functions
 import connectMongoDB from "./db/connectMongoDB.js";
@@ -29,10 +30,9 @@ app.use(express.urlencoded({ extended: true })); // to parse form data(urlencode
 // able to reqest cookies
 app.use(cookieParser());
 
-// Call auth Routes
-app.use("/api/auth", authRoutes);
-// call users Routes
-app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes); // Call auth Routes
+app.use("/api/users", userRoutes); // call users Routes
+app.use("/api/posts", postRoutes); //call posts Routes
 
 // Server run in 8000 port
 app.listen(PORT, () => {
