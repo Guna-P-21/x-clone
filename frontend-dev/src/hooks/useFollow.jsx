@@ -32,6 +32,6 @@ const useFollow = () => {
       toast.error(error.message);
     },
   });
-  return {follow, isPending};
+  return { follow, isPending };
 };
 export default useFollow;
