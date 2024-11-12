@@ -1,4 +1,5 @@
 // Packages
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -23,9 +24,10 @@ cloudinary.config({
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const __dirname = path.resolve();
 
 // is an Regular function inbetween req & res
-app.use(express.json({limit: "5mb"})); // to parse req.body // limit shouldn't be too high to prevent DOS
+app.use(express.json({ limit: "5mb" })); // to parse req.body // limit shouldn't be too high to prevent DOS
 app.use(express.urlencoded({ extended: true })); // to parse form data(urlencoded)
 
 // able to reqest cookies
@@ -35,6 +37,14 @@ app.use("/api/auth", authRoutes); // Call auth Routes
 app.use("/api/users", userRoutes); // call users Routes
 app.use("/api/posts", postRoutes); //call posts Routes
 app.use("/api/notifications", notificationRoutes); // call api notification Routes
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend-dev/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend-dev", "dist", "index.html"));
+  });
+}
 
 // Server run in 8000 port
 app.listen(PORT, () => {
